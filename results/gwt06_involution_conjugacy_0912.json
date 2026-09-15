@@ -1,0 +1,15 @@
+{
+ "ts": "2026-09-12T04:03:12Z",
+ "nonce": "qtlv-t34-ffe89a",
+ "theorem": "ker(T∘σ,a)=ker(σ∘T,a) for σ²=id",
+ "verified": {
+  "huA∘rev vs rev∘huA": {
+   "1": 144,
+   "5": 16,
+   "7": 36,
+   "11": 4
+  },
+  "cuo/fu×4a": "all equal"
+ },
+ "method": "CRT count-only Z3xZ4"
+}
