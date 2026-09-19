@@ -1,0 +1,23 @@
+name: KEY-PROBE-PUB-01 (拍46·qtlv-pub钥面名级探·值不出)
+'on':
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe
+        run: |
+          python3 - <<'PYEOF'
+          import os, json, urllib.request
+          tok=os.environ.get('PROBE_TOK','')
+          H={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'}
+          try:
+              rq=urllib.request.Request('https://api.github.com/repos/chepin-qi/qtlv-pub/actions/secrets?per_page=100',headers=H)
+              with urllib.request.urlopen(rq,timeout=20) as r: d=json.loads(r.read())
+              names=[s['name'] for s in d.get('secrets',[])]
+              print(json.dumps({'repo':'qtlv-pub','n':len(names),'names':sorted(names)},ensure_ascii=False))
+          except urllib.error.HTTPError as e:
+              print(json.dumps({'repo':'qtlv-pub','fail':e.code}))
+          PYEOF
