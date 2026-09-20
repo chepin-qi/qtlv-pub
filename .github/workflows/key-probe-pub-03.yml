@@ -1,0 +1,32 @@
+name: KEY-PROBE-PUB-03 (拍47·qtlv-pub量子钥扩展名级探)
+'on':
+  workflow_dispatch:
+permissions:
+  contents: read
+env:
+  QRINGS_KEY_64: ${{ secrets.QRINGS_KEY_64 }}
+  QRINGS_KEY_128: ${{ secrets.QRINGS_KEY_128 }}
+  QUANTUMRINGS_API_KEY_64: ${{ secrets.QUANTUMRINGS_API_KEY_64 }}
+  QUANTUMRINGS_API_KEY_128: ${{ secrets.QUANTUMRINGS_API_KEY_128 }}
+  QUAFU_API_TOKEN: ${{ secrets.QUAFU_API_TOKEN }}
+  QUAFU_TOKEN: ${{ secrets.QUAFU_TOKEN }}
+  QUAFU_API_KEY: ${{ secrets.QUAFU_API_KEY }}
+  ORIGINQC_KEY_1: ${{ secrets.ORIGINQC_KEY_1 }}
+  ORIGINQC_API_KEY: ${{ secrets.ORIGINQC_API_KEY }}
+  QR_64: ${{ secrets.QR_64 }}
+  QR_128: ${{ secrets.QR_128 }}
+  QR_API_KEY: ${{ secrets.QR_API_KEY }}
+  LV_QR64: ${{ secrets.LV_QR64 }}
+  QUANTUM_KEY: ${{ secrets.QUANTUM_KEY }}
+  IBMQ_TOKEN: ${{ secrets.IBMQ_TOKEN }}
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: probe
+        run: |
+          python3 - <<'PYEOF'
+          import os, json
+          cands=['QRINGS_KEY_64','QRINGS_KEY_128','QUANTUMRINGS_API_KEY_64','QUANTUMRINGS_API_KEY_128','QUAFU_API_TOKEN','QUAFU_TOKEN','QUAFU_API_KEY','ORIGINQC_KEY_1','ORIGINQC_API_KEY','QR_64','QR_128','QR_API_KEY','LV_QR64','QUANTUM_KEY','IBMQ_TOKEN']
+          print(json.dumps({'repo':'qtlv-pub','present':{c:bool(os.environ.get(c)) for c in cands}},ensure_ascii=False))
+          PYEOF
